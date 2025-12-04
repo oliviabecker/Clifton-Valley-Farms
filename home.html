@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clifton Valley Farms</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* CUSTOM FONTS */
+    @font-face {
+      font-family: 'runtime';
+      src: url('fonts/runtime-font/runtime.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Heatwood';
+      src: url('fonts/Heatwood/Heatwood.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* BASE STYLES */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html { height:100%; font-family: 'Montserrat', sans-serif; }
+
+    /* HERO SECTION */
+    .hero-section { position: relative; height: 100vh; overflow: hidden; }
+    .hero-bg-img { width:100%; height:100%; object-fit:cover; }
+
+    .hero-overlay {
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+      justify-content:space-between;
+      background: rgba(0,0,0,0.2);
+      color:#f4efe8;
+      padding:20px 50px;
+    }
+
+
+    /* NAV container positioning */
+    .hero-nav {
+      position:absolute;
+      top:20px;
+      right:20px;
+      z-index:1000;
+      width:auto;
+    }
+
+    /* NAV background and centering */
+    .hero-nav-wrapper {
+      display:flex;
+      justify-content:center;
+      padding:10px 30px;
+      border-radius:10px;
+      background-color: rgba(56,41,34,0.35);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .hero-nav ul {
+      list-style:none;
+      display:flex;
+      gap:25px;
+    }
+
+    .hero-nav ul li a {
+      color:#f8f5f1;
+      text-decoration: none;
+      font-family:'runtime', sans-serif;
+      font-size:1.2em;
+      transition: transform 0.3s ease-in-out; 
+      display: inline-block; 
+    }
+
+    .hero-nav ul li a:hover {
+      text-decoration: none; 
+      transform: translateY(-2px); 
+    }
+
+    /* Hide the hamburger on desktop by default */
+    .hamburger { display: none; }
+
+    /* HERO CONTENT */
+    .hero-content {
+      display:flex;
+      flex-direction: column; 
+      align-items:center; 
+      flex:1;
+      margin-top:20px;
+      position: relative; 
+    }
+
+    /* HERO CTA STYLING */
+    .hero-cta {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 50px; 
+    }
+
+    .hero-cta a {
+        color: #f4efe8;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'runtime', sans-serif;
+        font-size: 1.5em;
+        border: 2px solid #f4efe8;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background: rgba(56, 41, 34, 0.5);
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .hero-cta a:hover {
+        background: rgba(56, 41, 34, 0.8);
+        transform: scale(1.05); /* subtle lift */
+    }
+
+    .hero-cta img { width:30px; height:30px; }
+
+    .hero-left {
+        display: none;
+    }
+
+    .hero-center { 
+      text-align:center; 
+      font-family:'runtime', sans-serif;
+      width: 100%; 
+      margin-top: 50px; 
+    }
+
+    .hero-center h1 { font-size:3.8rem; margin:0; }
+    .hero-center .subtitle {
+      font-family:'Heatwood';
+      font-size:1rem;
+      margin-top:15px;
+    }
+
+
+    /* TICKER */
+    .hero-ticker {
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      overflow:hidden;
+      background:rgba(56,41,34,0.35);
+      border-top:1px solid #f4efe8;
+    }
+
+    .ticker-track {
+      display:inline-block;
+      white-space:nowrap;
+      animation: ticker-scroll 40s linear infinite;
+    }
+
+    .ticker-track span {
+      padding-right:2em;
+      font-family:'runtime';
+      font-size:1.1rem;
+      color:#f4efe8;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ABOUT THE FARM SECTION */
+    .about-section {
+      background-color: #f8f5f1;
+      color: #382922;
+      padding: 80px 50px;
+    }
+
+    .about-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* BUTTON STYLES */
+    .about-button-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      padding: 12px 30px;
+
+      /* Farm Styling */
+      background-color: #382922;
+      color: #f8f5f1;
+      border: 2px solid #382922;
+      border-radius: 5px;
+
+      text-decoration: none;
+      font-family: 'runtime', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .primary-button:hover {
+      background-color: #f8f5f1;
+      color: #382922;
+      cursor: pointer;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 576px) {
+      .about-button-container {
+        margin-top: 30px;
+      }
+      .primary-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    /* Heading Styling */
+    .about-heading {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #382922;
+    }
+
+    .about-heading .main-title {
+      font-family: 'runtime', sans-serif;
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .about-heading .sub-title {
+      font-family: 'Heatwood', cursive;
+      font-size: 1.2rem;
+      color: #6a5347;
+      margin-top: 5px;
+    }
+
+    /* Content Styling */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      line-height: 1.8;
+      font-size: 1.1em;
+    }
+
+    .about-content p {
+      margin-bottom: 0;
+    }
+
+    /* VISUAL SHOWCASE SECTION */
+    .visual-showcase-section {
+      background-color: #382922;
+      color: #f4efe8;
+      padding: 80px 50px;
+    }
+
+    .visual-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .visual-header {
+      margin-bottom: 50px;
+    }
+
+    .visual-header .main-title {
+      font-family: 'runtime', sans-serif;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .visual-header .sub-title {
+      font-family: 'Heatwood', cursive;
+      font-size: 1.1rem;
+      color: #bfa897;
+      margin-top: 5px;
+    }
+
+    /* Photo Grid Layout */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .grid-item {
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .grid-item img:hover {
+        transform: scale(1.05);
+    }
+
+    .secondary-button {
+      display: inline-block;
+      padding: 12px 30px;
+
+      /* Styling Inverse */
+      background-color: #f8f5f1;
+      color: #382922;
+      border: 2px solid #f8f5f1;
+      border-radius: 5px;
+
+      text-decoration: none;
+      font-family: 'runtime', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .secondary-button:hover {
+      background-color: transparent;
+      color: #f8f5f1;
+      cursor: pointer;
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width: 992px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-item img {
+          height: 200px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .visual-showcase-section {
+        padding: 60px 25px;
+      }
+      .photo-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width: 768px) {
+      .about-section {
+        padding: 60px 25px;
+      }
+
+      /* single column on smaller screens */
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .about-heading .main-title {
+        font-size: 2.2rem;
+      }
+
+      .about-heading {
+         margin-bottom: 30px;
+      }
+    }
+
+    /* MOBILE & TABLET RESPONSIVE */
+    @media (max-width: 992px) {
+      .hero-overlay { padding: 20px 25px; }
+
+      /* Hero Content */
+      .hero-content {
+        flex-direction: column;
+        justify-content: center;
+        text-align:center;
+        gap:30px;
+        margin-top:0;
+      }
+      .hero-nav-wrapper {
+        background:none;
+        box-shadow:none;
+        padding:0;
+      }
+
+      /* Show the hamburger icon */
+      .hamburger {
+        display:flex;
+        position:absolute;
+        top:20px;
+        right:25px;
+        flex-direction:column;
+        cursor:pointer;
+        z-index:2000;
+        transition: transform 0.3s;
+      }
+
+      .hamburger div {
+        width:28px;
+        height:3px;
+        background:#f8f5f1;
+        margin:4px 0;
+        transition:0.4s;
+        border-radius:2px;
+      }
+
+      /* DROPDOWN NAV (PHONE VIEW) */
+      .hero-nav ul {
+        display: none;
+        flex-direction:column;
+        align-items:flex-end;
+        position:absolute;
+        top: 40px;
+        right: 0;
+        background:rgba(56,41,34,0.9);
+        padding:15px 20px;
+        border-radius:10px;
+        width:180px;
+        gap:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.5);
+      }
+
+      .hero-nav ul.active {
+        display: flex;
+      }
+
+      .hero-nav ul li a {
+        text-align:right;
+        display:block;
+        width:100%;
+        font-size:1.2em;
+      }
+
+      /* HAMBURGER TO 'X' ANIMATION */
+      .hamburger.is-active div:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger.is-active div:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.is-active div:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* CTA position for mobile stack */
+      .hero-cta {
+          order: 3;
+      }
+      .hero-left {
+          display: none;
+      }
+    }
+
+
+    /* DESKTOP NAV: larger screens */
+    @media (min-width: 993px) {
+
+      .hero-nav ul {
+            display: flex !important;
+            position: static;
+            background: none;
+            box-shadow: none;
+        }
+
+        .hamburger {
+            display: none !important;
+        }
+
+        .hero-nav-wrapper {
+            background-color: rgba(56,41,34,0.35);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 10px 30px;
+        }
+
+        .hero-content {
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .hero-cta {
+            position: static; 
+            transform: none;
+        }
+                .hero-center {
+            margin-top: 0; 
+            width: auto;
+            flex: none;
+        }
+    }
+
+    /* EXTRA SMALL SCREENS */
+    @media(max-width:576px) {
+      .hero-center h1 { font-size:2.4rem; }
+      .hero-left { font-size:1.4em; }
+    }
+
+    /* CUSTOMER SPOTLIGHT / TESTIMONIAL */
+    .testimonial-section {
+      background-color: #96a18d;
+      color: #f8f5f1;
+      padding: 90px 50px;
+      text-align: center;
+    }
+
+    .testimonial-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .quote-text {
+      font-family: 'runtime', sans-serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .quote-author {
+      font-family: 'Heatwood';
+      font-size: 1.2rem;
+      color: #f4efe8;
+      letter-spacing: 1px;
+    }
+
+    /* CONTACT SECTION */
+    .clean-contact {
+      background-color: #f4efe8;
+      color: #382922;
+      padding: 100px 50px;
+      text-align: center;
+    }
+
+    .contact-container-minimal {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Main Title */
+    .contact-section .contact-title {
+      font-family: 'runtime', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 50px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(56, 41, 34, 0.4); 
+      display: inline-block;
+    }
+
+    .contact-details-minimal {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    /* Block Styling */
+    .contact-block-minimal {
+      padding: 0 15px;
+      border-right: 1px solid rgba(56, 41, 34, 0.2); 
+    }
+    .contact-block-minimal:last-child {
+        border-right: none;
+    }
+
+    .contact-block-minimal .block-header {
+      font-family: 'runtime', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      color: #382922;
+    }
+
+    /* Paragraph and Text Styling */
+    .contact-block-minimal p {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* Link Styling */
+    .contact-block-minimal a {
+        color: #382922;
+        text-decoration: none;
+        border-bottom: none;
+        transition: color 0.3s;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+    /* Link Hover Effect */
+    .contact-block-minimal a:hover {
+        color: #6a5347;
+    }
+
+    /* Map Link Button Styling */
+    .contact-block-minimal .map-link {
+        display: inline-block;
+        margin-top: 15px;
+        font-family: 'runtime', sans-serif;
+        font-size: 1.0rem;
+        text-transform: uppercase;
+        color: #382922;
+
+        /* Box/Button Style */
+        border: 1px solid #382922;
+        padding: 8px 15px;
+        border-radius: 4px;
+
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Map Link Hover Effect */
+    .contact-block-minimal .map-link:hover {
+        background-color: #382922;
+        color: #f4efe8;
+        border-color: #382922;
+    }
+
+
+    /* Social Links Styling (Inline) */
+    .social-links-minimal {
+        font-family: 'runtime', sans-serif;
+        font-size: 1.1rem;
+    }
+    .social-divider {
+        padding: 0 8px;
+        color: #382922;
+    }
+    .social-icon-minimal {
+        font-size: 1.8rem;
+        transition: color 0.3s;
+    }
+    .social-icon-minimal:hover {
+        color: #6a5347;
+    }
+
+
+.social-links-minimal a, 
+.contact-block-minimal p a {
+    transition: transform 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.social-links-minimal a:hover,
+.contact-block-minimal p a:hover {
+    transform: translateY(-5px);
+}
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .clean-contact {
+        padding: 80px 25px;
+      }
+      .contact-details-minimal {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-top: 20px;
+      }
+      .contact-block-minimal {
+        border-right: none;
+        padding: 0;
+        border-bottom: 1px solid rgba(56, 41, 34, 0.2);
+        padding-bottom: 25px;
+      }
+      .contact-block-minimal:last-child {
+          border-bottom: none;
+      }
+      .contact-section .contact-title {
+          font-size: 2.2rem;
+          margin-bottom: 30px;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+      .testimonial-section {
+        padding: 60px 25px;
+      }
+      .quote-text {
+        font-size: 1.2rem;
+      }
+      .quote-author {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero-section">
+    <img src="images/Welcomepic.png" class="hero-bg-img" alt="Farm background image with plants and blooms">
+
+    <div class="hero-overlay">
+
+      <header>
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div><div></div><div></div>
+        </div>
+
+        <nav class="hero-nav">
+          <div class="hero-nav-wrapper">
+            <ul id="navMenu">
+              <li><a href="home.html">Home</a></li>
+              <li><a href="about.html">Our Story</a></li> 
+              <li><a href="stand.html">Seasonal Stand</a></li>
+              <li><a href="plant-care.html">Plant Care</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+
+      <div class="hero-content">
+
+        <div class="hero-left"></div> 
+
+        <div class="hero-center">
+          <h1>Clifton Valley Farms</h1>
+          <p class="subtitle">Family-owned greenhouse in River Falls, WI</p>
+        </div>
+        
+        <div class="hero-cta">
+          <a href="https://maps.app.goo.gl/8jqZSHEB8EwaKytz5" target="_blank" rel="noopener noreferrer">
+            <img src="assets/LOCATION_PIN.png" alt="Location Pin Icon">
+            <span>Find Our Location</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <span>Clifton Valley Farms • Established in 2023 • Rooted in Quality and Community • Grown with Care • Locally Loved</span>
+      <span>Holiday Pots Now Available • Fresh Blooms Every Week</span>
+      <span>Follow us on Instagram @clifton_valley_farms</span>
+      <span>Clifton Valley Farms • Established in 2023 • Rooted in Quality and Community • Grown with Care • Locally Loved</span>
+      <span>Holiday Pots Now Available • Fresh Blooms Every Week</span>
+      <span>Follow us on Instagram @clifton_valley_farms</span>
+    </div>
+  </div>
+
+<section class="about-section">
+    <div class="about-container">
+
+      <div class="about-heading">
+        <h2 class="main-title">About the Farm</h2>
+        <p class="sub-title">making life a little greener</p>
+      </div>
+
+      <div class="about-content">
+
+        <p>At Clifton Valley Farms, we grow plants and flowers with care, supplying businesses with high-quality, healthy greenery. From offices to stores, our plants are ready to thrive in any space.</p>
+
+        <p>We also love sharing our plants with the local community. Our roadside stand offers seasonal baskets and potted plants, giving everyone a chance to bring a little greenery home.</p>
+
+        <p>Quality and consistency are at the heart of everything we do. Every plant is grown responsibly in our greenhouse and prepared to meet the needs of our customers.</p>
+
+        <p>What we grow matters - to us, to our partners, and to everyone who takes a piece of it home!</p>
+
+      </div>
+
+      <div class="about-button-container">
+        <a href="stand.html" class="primary-button">See What's on The Stand</a>
+      </div>
+
+
+    </div>
+  </section>
+
+  <section class="visual-showcase-section">
+    <div class="visual-container">
+
+      <div class="visual-header">
+        <h3 class="main-title">Grown with Care</h3>
+        <p class="sub-title">A look inside our world</p>
+      </div>
+
+      <div class="photo-grid">
+        <div class="grid-item"><img src="images/up_close_plants.jpeg" alt="A close-up of a perfectly potted plant"></div>
+        <div class="grid-item"><img src="images/inside_gh.jpeg" alt="A view of the greenhouse interior"></div>
+        <div class="grid-item"><img src="images/hanging_baskets.jpeg" alt="Seasonal blooms arranged beautifully"></div>
+        <div class="grid-item"><img src="images/plant_stand.jpeg" alt="A rustic outdoor plant stand"></div>
+      </div>
+
+      <div class="visual-button-container">
+        <a href="gallery.html" class="secondary-button">View Full Gallery</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="testimonial-section">
+    <div class="testimonial-container">
+
+      <p class="quote-text">"Anna is so talented, she created the most beautiful pot of plants. They lasted me all summer!"</p>
+
+      <p class="quote-author">— Heather F.</p>
+
+    </div>
+  </section>
+
+  <section class="contact-section clean-contact">
+    <div class="contact-container-minimal">
+
+      <h3 class="contact-title">Let's Talk!</h3>
+
+      <div class="contact-details-minimal">
+
+        <div class="contact-block-minimal">
+            <h4 class="block-header">Visit Us</h4>
+            <p>1W10559 State Rd 29<br>River Falls, WI 54022</p>
+            <a href="https://maps.app.goo.gl/8jqZSHEB8EwaKytz5" target="_blank" rel="noopener noreferrer" class="map-link">
+                Find Us on Maps
+            </a>
+        </div>
+
+        <div class="contact-block-minimal">
+            <h4 class="block-header">Questions?</h4>
+            <p>
+                <a href="mailto:c.cliftonvalleyfarms@gmail.com">c.cliftonvalleyfarms@gmail.com</a>
+            </p>
+        </div>
+
+        <div class="contact-block-minimal">
+            <h4 class="block-header">Grow With Us</h4>
+            <div class="social-links-minimal">
+            
+          <a href="https://instagram.com/clifton_valley_farms" target="_blank" rel="noopener noreferrer">
+            <img src="assets/insta_icon.png" alt="Instagram Icon" style="width:50px; height:50px;">
+          </a>
+          
+          <span class="social-divider">•</span>
+          
+          <a href="https://www.facebook.com/people/Clifton-Valley-Farms/61576555481881/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/fb_icon.png" alt="Facebook Icon" style="width:50px; height:50px;">
+          </a>
+
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("navMenu");
+  const hamburger = document.querySelector(".hamburger");
+
+  menu.classList.toggle("active");
+  hamburger.classList.toggle("is-active");
+}
+</script>
+
+</body>
+</html>

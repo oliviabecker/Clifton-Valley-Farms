@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clifton Valley Farms Plant Care Library</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CUSTOM FONTS (Adopted from home.html) */
+    @font-face {
+      font-family: 'runtime';
+      src: url('fonts/runtime-font/runtime.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Heatwood';
+      src: url('fonts/Heatwood/Heatwood.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+@media (max-width: 992px) {
+
+    /* DROPDOWN NAV (PHONE VIEW) */
+    .hero-nav ul {
+        display: none; 
+        flex-direction:column;
+        align-items:flex-end;
+        position:absolute;
+        top: 55px; 
+        right: 1.5rem;
+        background:var(--color-dark-accent);
+        padding:15px 20px;
+        border-radius:10px;
+        width:180px;
+        gap:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .hero-nav ul.active {
+        display: flex;
+    }
+
+    .hero-nav ul li a {
+        color: var(--color-light); 
+    }
+
+}
+    /* --- BASE STYLES & COLOR VARIABLES --- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    
+    :root {
+      --color-primary: #382922; 
+      --color-secondary: #96a18d; 
+      --color-background: #f4efe8; 
+      --color-light: #f4efe8; 
+      --color-dark-accent: rgba(56,41,34,0.9);
+      --color-sub-title: #6a5347; 
+    }
+    
+    body, html { 
+        height: 100%; 
+        font-family: 'Montserrat', sans-serif; 
+        background-color: var(--color-background);
+        color: var(--color-primary);
+    }
+
+    /* --- NAVIGATION STYLES --- */
+
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: transparent; 
+      padding: 1rem 2rem;
+      box-shadow: none; 
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+
+    /* Site Title Link Style */
+    .site-title-link {
+        text-decoration: none;
+        color: var(--color-primary); 
+        font-family: 'runtime', sans-serif; 
+        font-size: 1.5rem; 
+        font-weight: normal;
+        transition: transform 0.3s ease-in-out; 
+    }
+    .site-title-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .hero-nav ul { list-style:none; display:flex; gap:25px; }
+
+    .hero-nav ul li a {
+      color: var(--color-primary); 
+      text-decoration: none;
+      font-family:'runtime', sans-serif;
+      font-size:1.2em;
+      transition: transform 0.3s ease-in-out; 
+      display: inline-block; 
+    }
+
+    .hero-nav ul li a:hover,
+    .hero-nav ul li a.active-link { 
+      transform: translateY(-2px); 
+      text-decoration: none !important;
+    }
+
+    .hamburger { display: none; }
+
+
+    /* --- MAIN CONTENT STYLES --- */
+    
+    .main-content {
+        padding: 1rem 2rem 4rem 2rem; 
+        min-height: calc(100vh - 80px); 
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    
+    /* Heading Structure */
+    .library-heading {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--color-primary); 
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 2rem; 
+      padding-top: 0;
+    }
+    .library-heading .main-title {
+        font-family: 'runtime', sans-serif;
+        font-size: 3rem;
+        margin: 0;
+        color: var(--color-primary);
+    }
+    .library-heading .sub-title {
+        font-family: 'runtime', sans-serif; 
+        font-size: 1.2rem;
+        color: var(--color-secondary); 
+        margin-top: 5px;
+    }
+
+
+    /* Search and Filter Bar */
+    .filter-bar {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        align-items: center;
+        background-color: var(--color-light); 
+        padding: 1.5rem;
+        border-radius: 0.75rem; 
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+    }
+
+    .filter-bar input, .filter-bar select {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-family: 'runtime', sans-serif;
+        color: var(--color-primary);
+    }
+    .filter-bar input { flex-grow: 1; min-width: 200px; }
+    .filter-bar select { width: auto; }
+
+    .input-focus-style:focus {
+        outline: none;
+        border-color: var(--color-secondary) !important;
+        box-shadow: 0 0 0 2px rgba(150, 161, 141, 0.5);
+    }
+
+    .plant-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    /* Plant Card Styles */
+    .plant-card {
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--color-light);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .card-image-container { 
+        height: 12rem; 
+        overflow: hidden; 
+    }
+    .card-image-container img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+    }
+
+    .card-content { 
+        padding: 1.5rem; 
+        padding-bottom: 2.5rem; 
+    }
+    .card-content h3 {
+        font-family: 'runtime', sans-serif;
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+    }
+    .card-content p {
+        font-family: 'runtime', sans-serif;
+        font-size: 0.9rem;
+        color: #6b7280; 
+        margin-top: 1rem;
+    }
+
+    /* Badge Styles */
+    .card-sun-needs {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 10px;
+        white-space: nowrap;
+        font-family: 'runtime', sans-serif;
+    }
+    .sun-Full { background-color: #ffecc2; color: var(--color-primary); } 
+    .sun-Partial { background-color: var(--color-secondary); color: var(--color-primary); } 
+    .sun-Shade { background-color: #c9bfa8; color: var(--color-primary); } 
+    .water-Low { border: 1px solid var(--color-secondary); background-color: var(--color-light); color: var(--color-primary); } 
+    .water-Moderate { background-color: var(--color-secondary); color: var(--color-primary); } 
+    .water-High { background-color: var(--color-primary); color: var(--color-light); } 
+
+
+    /* --- MOBILE RESPONSIVE STYLES --- */
+
+    @media (max-width: 992px) {
+        .sticky-header {
+            flex-direction: row; 
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .site-title-link {
+            color: var(--color-primary); 
+            font-size: 1.6rem;
+        }
+
+        .hamburger {
+            display:flex;
+            position:absolute;
+            top:1.2rem;
+            right:1.5rem;
+            flex-direction:column;
+            cursor:pointer;
+            z-index:2000;
+        }
+        .hamburger div {
+            width:28px; height:3px; background:var(--color-primary);
+            margin:4px 0; transition:0.4s; border-radius:2px;
+        }
+
+        /* DROPDOWN NAV (PHONE VIEW) */
+        .hero-nav ul {
+            display: none; 
+            flex-direction:column;
+            align-items:flex-end;
+            position:absolute;
+            top: 55px; 
+            right: 1.5rem;
+            background:var(--color-dark-accent);
+            padding:15px 20px;
+            border-radius:10px;
+            width:180px;
+            gap:15px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-nav ul li a {
+            color: var(--color-light); 
+        }
+
+        .main-content { padding: 0.5rem 1.5rem 2rem 1.5rem; }
+
+        .library-heading { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+        .library-heading .main-title { font-size: 2.2rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="sticky-header">
+
+    <a href="home.html" class="site-title-link">Clifton Valley Farms</a>
+
+    <nav class="hero-nav">
+
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+      </div>
+
+      <div class="hero-nav-wrapper">
+        <ul id="navMenu">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li> 
+          <li><a href="stand.html">Seasonal Stand</a></li>
+          <li><a href="plant-care.html" class="active-link">Plant Care</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="main-content">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="library-heading">
+        <h2 class="main-title">Plant Care Library</h2>
+        <p class="sub-title">growing tips, common issues, and care info</p>
+      </div>
+
+      <div class="filter-bar">
+        
+        <input 
+          type="text" 
+          id="searchQuery" 
+          placeholder="Search by name (e.g., Begonia, Mum)..." 
+          class="input-focus-style"
+          oninput="filterPlants()"
+        >
+        
+        <select id="sunFilter" onchange="filterPlants()" class="input-focus-style">
+          <option value="">-- Sunlight Needs --</option>
+          <option value="Full">Full Sun</option>
+          <option value="Partial">Partial Sun</option>
+          <option value="Shade">Shade</option>
+        </select>
+        
+        <select id="waterFilter" onchange="filterPlants()" class="input-focus-style">
+          <option value="">-- Water Needs --</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+      
+      <div id="plantList" class="plant-list">
+        <div class="no-results" id="noResults" style="display:none;">
+            <p>No plants match your current filter criteria.</p>
+            <p style="margin-top: 5px;">Try adjusting your search terms or filters.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+<script>
+  // --- NAV JS ---
+  function toggleMenu(){
+    const menu = document.getElementById("navMenu");
+    const hamburger = document.querySelector(".hamburger");
+    menu.classList.toggle("active");
+    hamburger.classList.toggle("is-active");
+  }
+
+  // --- PLANT DATA & FUNCTIONALITY ---
+
+  const plantData = [
+    {
+      id: 1,
+      name: "Begonia",
+      image: "./images/begonia_care.jpg",
+      sun: "Partial",
+      water: "Moderate",
+      care: "Prefers morning sun or bright shade. Keep soil evenly moist, avoiding overwatering. Good drainage is crucial. Protect from strong wind."
+    },
+    {
+      id: 2,
+      name: "Coleus",
+      image: "./images/hanging_baskets.jpeg",
+      sun: "Shade",
+      water: "Moderate",
+      care: "Grown for colorful foliage. Bright light enhances color; direct afternoon sun can scorch. Pinch tips to encourage bushy form."
+    },
+    {
+      id: 3,
+      name: "Coneflower (Echinacea)",
+      image: "./images/coneflower_care.jpg",
+      sun: "Full",
+      water: "Low",
+      care: "Very drought tolerant once established. Plant in full sun and well-drained soil. Deadhead spent flowers regularly for continuous blooming."
+    },
+    {
+      id: 4,
+      name: "Mum (Chrysanthemum)",
+      image: "./images/grown-mums-stand.jpeg",
+      sun: "Full",
+      water: "Moderate",
+      care: "Requires 6+ hours of direct sun for best fall blooms. Water regularly, especially in hot weather. Pinch stems until early July for dense autumn flowers."
+    },
+    {
+      id: 5,
+      name: "Sunflower Mum",
+      image: "./images/sunflower_mums.jpeg",
+      sun: "Full",
+      water: "High",
+      care: "Requires full sun and rich, fertile soil. Water heavily and deeply when plants are tall. Tall varieties require staking."
+    },
+    {
+      id: 6,
+      name: "Fuchsia",
+      image: "./images/fuschia_care.jpg",
+      sun: "Partial",
+      water: "High",
+      care: "Ideal for hanging baskets. Prefers cool, humid conditions and bright, indirect light. Water frequently to keep soil moist; ensure good drainage."
+    },
+    {
+      id: 7,
+      name: "Caladium",
+      image: "./images/caladium_care.jpg",
+      sun: "Shade",
+      water: "Moderate",
+      care: "Known for large, colorful, heart-shaped leaves. Needs warm temperatures and high humidity. Plant in rich, well-draining soil and water consistently."
+    },
+    {
+      id: 8,
+      name: "Zinnia",
+      image: "./images/zinnia_care.jpg",
+      sun: "Full",
+      water: "Moderate",
+      care: "Thrives in heat and sunshine. Good air circulation is vital to prevent powdery mildew. Deadheading promotes new blooms."
+    },
+    {
+      id: 9,
+      name: "Hosta",
+      image: "./images/hostas_care.jpg", 
+      sun: "Shade",
+      water: "Moderate",
+      care: "Grown for foliage. Requires consistent moisture and protection from strong sun. Needs well-drained, rich soil."
+    },
+    {
+      id: 10,
+      name: "Pansies",
+      image: "./images/pansies_care.jpg", 
+      sun: "Partial",
+      water: "Moderate",
+      care: "Cool-weather annuals for spring/fall color. Prefers moist, well-draining soil. Deadhead for continuous blooming."
+    },
+    {
+      id: 11,
+      name: "Dahlia",
+      image: "./images/dhalia_care.jpg", 
+      sun: "Full",
+      water: "Moderate",
+      care: "Needs 6+ hours of sun. Provide consistent, moderate water, especially during heavy blooming. May require staking."
+    },
+    {
+      id: 12,
+      name: "Lavendar",
+      image: "./images/lav_care.jpg", 
+      sun: "Full",
+      water: "Low",
+      care: "Drought-tolerant herb requiring full sun and excellent drainage. Overwatering is the most common cause of failure. Trim lightly after flowering."
+    }
+  ];
+
+  const plantListContainer = document.getElementById('plantList');
+  const noResultsDiv = document.getElementById('noResults');
+
+  function renderPlants(plants) {
+    plantListContainer.innerHTML = '';
+
+    if (plants.length === 0) {
+        noResultsDiv.style.display = 'block';
+        return;
+    }
+    noResultsDiv.style.display = 'none';
+
+    plants.forEach(plant => {
+      const card = document.createElement('div');
+      card.className = `plant-card`;
+
+      const sunClass = `sun-${plant.sun}`;
+      const waterClass = `water-${plant.water}`;
+
+      card.innerHTML = `
+        <div class="card-image-container">
+            <img src="${plant.image}" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/c9bfa8/382922?text=Image+Missing';" 
+                 alt="Image of a ${plant.name} plant." 
+                 class="w-full h-full object-cover">
+        </div>
+        <div class="card-content">
+          <h3>${plant.name}</h3>
+
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+            <span class="card-sun-needs ${sunClass}">
+                <span role="img" aria-label="Sun icon" style="margin-right: 4px;">☀️</span> ${plant.sun} Sun
+            </span>
+            <span class="card-sun-needs card-water-needs ${waterClass}">
+                <span role="img" aria-label="Water drop icon" style="margin-right: 4px;">💧</span> ${plant.water} Water
+            </span>
+          </div>
+
+          <p>${plant.care}</p>
+
+          </div>
+      `;
+      plantListContainer.appendChild(card);
+    });
+  }
+
+  function filterPlants() {
+    const query = document.getElementById('searchQuery').value.toLowerCase();
+    const sun = document.getElementById('sunFilter').value;
+    const water = document.getElementById('waterFilter').value;
+
+    const filtered = plantData.filter(plant => {
+      const matchesQuery = plant.name.toLowerCase().includes(query) || plant.care.toLowerCase().includes(query);
+      const matchesSun = !sun || plant.sun === sun;
+      const matchesWater = !water || plant.water === water;
+
+      return matchesQuery && matchesSun && matchesWater;
+    });
+
+    renderPlants(filtered);
+  }
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    filterPlants();
+  });
+</script>
+
+</body>
+</html>

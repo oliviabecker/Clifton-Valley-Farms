@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clifton Valley Farms Gallery</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CUSTOM FONTS */
+        @font-face {
+            font-family: 'runtime';
+            src: url('fonts/runtime-font/runtime.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Heatwood';
+            src: url('fonts/Heatwood/Heatwood.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* --- BASE STYLES & COLOR VARIABLES --- */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        :root {
+            --color-primary: #382922; 
+            --color-secondary: #96a18d; 
+            --color-background: #f4efe8; 
+            --color-light: #f4efe8; 
+            --color-dark-accent: rgba(56,41,34,0.9);
+            --color-sub-title: #6a5347; 
+        }
+        
+        body, html { 
+            height: 100%; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--color-background);
+            color: var(--color-primary);
+        }
+
+        /* NAVIGATION STYLES  */
+
+        /* Sticky Header Container */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: transparent; 
+            padding: 1rem 2rem;
+            box-shadow: none; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .site-title-link {
+            text-decoration: none;
+            color: var(--color-primary); 
+            font-family: 'runtime', sans-serif; 
+            font-size: 1.5rem; 
+            font-weight: normal;
+            transition: transform 0.3s ease-in-out; 
+        }
+        .site-title-link:hover { transform: translateY(-2px); }
+
+        .hero-nav ul { list-style:none; display:flex; gap:25px; }
+
+        .hero-nav ul li a {
+            color: var(--color-primary); 
+            text-decoration: none;
+            font-family:'runtime', sans-serif;
+            font-size:1.2em;
+            transition: transform 0.3s ease-in-out; 
+            display: inline-block; 
+        }
+
+        .hero-nav ul li a:hover,
+        .hero-nav ul li a.active-link { 
+            transform: translateY(-2px); 
+            text-decoration: none !important;
+        }
+
+        .hamburger { display: none; }
+
+
+        /* GALLERY SPECIFIC STYLES  */
+
+        .main-content {
+            padding: 1rem 0 4rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Heading Structure */
+        .page-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--color-secondary);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2rem;
+        }
+        .page-heading .main-title {
+            font-family: 'runtime', sans-serif;
+            font-size: 3rem;
+            margin: 0;
+            color: var(--color-primary);
+        }
+        .page-heading .sub-title {
+            font-family: 'runtime', sans-serif; 
+            font-size: 1.2rem;
+            color: var(--color-secondary); 
+            margin-top: 5px;
+        }
+
+        /* Gallery Grid Layout */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        /* Individual Gallery Item */
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease-in-out;
+            min-height: 250px;
+            filter: brightness(0.98);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+        
+        /* Image Text Overlay  */
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(56, 41, 34, 0.4);
+            color: var(--color-light);
+            padding: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+
+        /* MOBILE RESPONSIVE STYLES  */
+
+        @media (max-width: 992px) {
+            .sticky-header {
+                padding: 1rem 1.5rem;
+            }
+            .site-title-link {
+                font-size: 1.6rem;
+            }
+            .hamburger {
+                display:flex;
+                position:absolute;
+                top:1.2rem;
+                right:1.5rem;
+                flex-direction:column;
+                cursor:pointer;
+                z-index:2000;
+            }
+            .hamburger div {
+                width:28px; height:3px; background:var(--color-primary);
+                margin:4px 0; transition:0.4s; border-radius:2px;
+            }
+            /* DROPDOWN NAV (PHONE VIEW) */
+            .hero-nav ul {
+                display: none; 
+                flex-direction:column;
+                align-items:flex-end;
+                position:absolute;
+                top: 55px; 
+                right: 1.5rem;
+                background:var(--color-dark-accent);
+                padding:15px 20px;
+                border-radius:10px;
+                width:180px;
+                gap:15px;
+                box-shadow:0 4px 10px rgba(0,0,0,0.5);
+            }
+            .hero-nav ul li a { color: var(--color-light); }
+
+            /* Gallery mobile */
+            .page-heading { margin-top: 1.5rem; margin-bottom: 2rem; }
+            .page-heading .main-title { font-size: 2.2rem; }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <header class="sticky-header">
+    
+    <a href="home.html" class="site-title-link">Clifton Valley Farms</a>
+    
+    <nav class="hero-nav">
+      
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+      </div>
+      
+      <div class="hero-nav-wrapper">
+        <ul id="navMenu">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li> 
+          <li><a href="stand.html">Seasonal Stand</a></li>
+          <li><a href="plant-care.html">Plant Care</a></li>
+          <li><a href="gallery.html" class="active-link">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="main-content">
+    
+      <div class="page-heading">
+        <h2 class="main-title">Gallery</h2>
+        <p class="sub-title">a visual story of our fields, flowers, and family.</p>
+      </div>
+
+      <div class="gallery-grid">
+        
+        <div class="gallery-item">
+            <img src="./images/carousel_images/1.png" alt="Hanging begonia basket">
+            <div class="caption">Hanging Begonia Basket</div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="./images/carousel_images/2.png" alt="A bountiful field harvest">
+            <div class="caption">Summer Field Harvest</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/3.png" alt="Growing mums">
+            <div class="caption">Growing Mums</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/4.png" alt="tri-colored mums">
+            <div class="caption">Tri-Colored Mums</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/5.png" alt="Begonia & Coleus Hanging Basket">
+            <div class="caption">Begonia & Coleus Hanging Basket</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/6.png" alt="Plant mixes and late summer blooms">
+            <div class="caption">Summer Blooming Pots & Baskets</div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="./images/carousel_images/7.png" alt="Anna holding giant mum">
+            <div class="caption">Giant Mums - Bigger Than Anna!</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/8.png" alt="Colorful plants on the stand">
+            <div class="caption">Pots & Hanging Baskets For Sale</div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="./images/carousel_images/9.png" alt="Sunset on The Farm">
+            <div class="caption">Sunset on The Farm</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/10.png" alt="Mums being planted">
+            <div class="caption">Baby Mums Being Planted</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/11.png" alt="unflower mums">
+            <div class="caption">Sunflower Mums</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./images/carousel_images/12.png" alt="Shady Hosta display">
+            <div class="caption">Sunflower Mums & Coneflowers</div>
+        </div>
+      </div>
+  </main>
+
+
+<script>
+  function toggleMenu(){
+    const menu = document.getElementById("navMenu");
+    const hamburger = document.querySelector(".hamburger");
+    menu.classList.toggle("active");
+    hamburger.classList.toggle("is-active");
+  }
+</script>
+
+</body>
+</html>

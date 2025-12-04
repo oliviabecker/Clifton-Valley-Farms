@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Stand - Clifton Valley Farms</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+  <section class="hero-section page-hero-header"> 
+    <img src="images/plant_stand.jpeg" class="hero-bg-img" alt="The roadside stand stocked with plants">
+
+    <div class="hero-overlay">
+
+      <header>
+        <a href="home.html" class="site-title-link">Clifton Valley Farms</a>
+
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div><div></div><div></div>
+        </div>
+
+        <nav class="hero-nav">
+          <div class="hero-nav-wrapper">
+            <ul id="navMenu">
+              <li><a href="home.html">Home</a></li>
+              <li><a href="about.html">Our Story</a></li>
+              <li><a href="stand.html">Seasonal Stand</a></li> <li><a href="plant-care.html">Plant Care</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <h1 class="page-hero-title">The Stand</h1>
+
+    </div>
+  </section>
+  
+  <section class="about-section">
+    <div class="about-container">
+
+      <div class="about-heading">
+        <h2 class="main-title">Fresh From the Greenhouse</h2>
+        <p class="sub-title">Stocked daily</p>
+      </div>
+
+      <div class="about-content">
+        <p>Our roadside stand is the heart of our connection with the local community. It’s where we showcase the best of what’s blooming in the greenhouse and the field. We believe that access to beautiful, healthy plants should be easy and spontaneous.</p>
+
+        <p>Whether you need a last-minute gift, a refresh for your porch pots, or just a little something to brighten your kitchen table, you’ll find it here. We restock every morning to ensure you get the freshest quality possible.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="about-section" style="background-color: #f8f5f1;">
+    <div class="about-container">
+        <div class="about-heading" style="border-bottom: 2px solid #382922;">
+            <h2 class="main-title" style="color: #382922;">Currently on The Stand</h2>
+            <p class="sub-title" style="color: #6a5347;">What you might find today</p>
+        </div>
+        
+        <div class="offerings-grid">
+            
+            <div class="offering-card">
+                <div class="offering-img-container">
+                    <img src="images/mum-stand.jpeg" alt="A selection of mums">
+                </div>
+                <div class="offering-content">
+                    <h4>Potted Mums</h4>
+                    <p>Single and tri-colored potted mums; perfect for fall!</p>
+                </div>
+            </div>
+
+            <div class="offering-card">
+                <div class="offering-img-container">
+                    <img src="images/hanging_baskets.jpeg" alt="hanging basket mix">
+                </div>
+                <div class="offering-content">
+                    <h4>Hanging Baksets</h4>
+                    <p>Make a statement with these beautiful mix of plants!</p>
+                </div>
+            </div>
+
+            <div class="offering-card">
+                <div class="offering-img-container">
+                    <img src="images/plant_stand_2.jpeg" alt="red coneflowers">
+                </div>
+                <div class="offering-content">
+                    <h4>Coneflowers</h4>
+                    <p>Red and yellow coneflower pots</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+  <section class="stand-logistics-section">
+      <div class="about-heading">
+          <h2 class="main-title" style="color: #f4efe8;">Visit Us</h2>
+      </div>
+
+      <div class="logistics-container">
+          
+          <div class="logistics-item">
+              <h4>Location</h4>
+              <p>W10559 State Rd 29<br>River Falls, WI 54022</p>
+              <div style="margin-top: 20px;">
+                  <a href="https://maps.app.goo.gl/8jqZSHEB8EwaKytz5" target="_blank" rel="noopener noreferrer" class="primary-button" style="background: transparent; border: 1px solid #96a18d; font-size: 0.9rem;">Get Directions</a>
+              </div>
+          </div>
+
+          <div class="logistics-item">
+              <h4>Hours</h4>
+              <p><strong>Open Daily</strong>
+              <p style="font-size: 0.9rem; margin-top: 10px; font-style: italic;">(Weather Permitting)</p>
+          </div>
+
+          <div class="logistics-item">
+              <h4>Payment</h4>
+              <p>We operate on the honor system.</p>
+              <div class="payment-methods">
+                  CASH • VENMO
+              </div>
+              <p style="font-size: 0.9rem; margin-top: 10px;">@CliftonValleyFarms</p>
+          </div>
+
+      </div>
+  </section>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("navMenu");
+  const hamburger = document.querySelector(".hamburger");
+
+  menu.classList.toggle("active");
+  hamburger.classList.toggle("is-active");
+}
+</script>
+
+</body>
+</html>

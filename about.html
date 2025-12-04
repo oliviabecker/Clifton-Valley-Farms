@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story - Clifton Valley Farms</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+  <section class="hero-section page-hero-header"> 
+    <img src="images/greenhouse.png" class="hero-bg-img" alt="Greenhouse interior with rows of plants">
+
+    <div class="hero-overlay">
+
+      <header>
+        <a href="home.html" class="site-title-link">Clifton Valley Farms</a>
+
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div><div></div><div></div>
+        </div>
+
+        <nav class="hero-nav">
+          <div class="hero-nav-wrapper">
+            <ul id="navMenu">
+              <li><a href="home.html">Home</a></li>
+              <li><a href="about.html">Our Story</a></li> 
+              <li><a href="stand.html">Seasonal Stand</a></li>
+              <li><a href="plant-care.html">Plant Care</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <h1 class="page-hero-title">Our Story</h1>
+
+    </div>
+  </section>
+  
+  <section class="about-section">
+    <div class="about-container">
+
+      <div class="about-heading">
+        <h2 class="main-title">Rooted in River Falls</h2>
+        <p class="sub-title">A look at how we grow</p>
+      </div>
+
+      <div class="about-content">
+        <p>Clifton Valley Farms began with a simple dream: to bring locally-grown, high-quality blooms and plants to the River Falls community and surrounding businesses. Founded in 2023, we are a family-run operation dedicated to hands-on growing, sustainable practices, and friendly service.</p>
+
+        <p>We believe that healthy plants start with a healthy environment, which is why every bloom in our greenhouse is tended to with meticulous care and responsible cultivation methods. When you purchase a plant from us, you're not just buying a product; you're supporting a local family and bringing a little piece of our passion into your home or business.</p>
+
+        <p>Our commitment extends beyond our greenhouse walls. We strive to be an accessible resource for all gardeners, offering simple plant care advice and a welcoming atmosphere at our seasonal roadside stand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-section">
+      <div class="about-container">
+        <div class="about-heading">
+            <h2 class="main-title">Our Core Values</h2>
+            <p class="sub-title">What drives the way we farm</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <h4>Quality First</h4>
+                <p>We guarantee the health and vitality of every plant we grow. From seed to shelf, our focus is on producing robust, beautiful greenery that lasts.</p>
+            </div>
+            <div class="value-card">
+                <h4>Community Focus</h4>
+                <p>We are proudly local and dedicated to supporting our neighbors, whether through our seasonal stand or partnerships with local businesses.</p>
+            </div>
+            <div class="value-card">
+                <h4>Sustainable Growth</h4>
+                <p>Our farming practices prioritize the environment, using responsible methods to ensure the health of our plants, our land, and our future.</p>
+            </div>
+        </div>
+      </div>
+  </section>
+
+<section class="founder-section">
+      <div class="founder-container">
+          <div class="founder-img">
+              <img src="images/anna_owner.jpeg" alt="Portrait of Anna, founder of Clifton Valley Farms">
+          </div>
+          <div class="founder-bio">
+              <h3>Meet the Founder, Anna</h3>
+              <span class="role">Owner and Head Grower</span>
+              <p>Anna’s lifelong love for gardening led her to establish Clifton Valley Farms. What started as a hobby greenhouse quickly grew into a commercial operation driven by the desire to share her carefully cultivated plants with a wider audience.</p>
+              <p>With a degree in Horticulture and years of experience, Anna oversees every aspect of the farm, ensuring the Clifton Valley standard of excellence is met. Her favorite part of the job? Seeing a customer's face light up when they find the perfect plant.</p>
+              <p>When she’s not in the greenhouse, Anna enjoys spending time with her family on the property, tending to her personal garden, and exploring the natural beauty of Western Wisconsin.</p>
+              
+              <div style="margin-top: 30px;">
+                  <a href="contact.html" class="primary-button">Work with Anna</a>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <script>
+function toggleMenu(){
+  const menu = document.getElementById("navMenu");
+  const hamburger = document.querySelector(".hamburger");
+
+  menu.classList.toggle("active");
+  hamburger.classList.toggle("is-active");
+}
+</script>
+
+</body>
+</html>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("navMenu");
+  const hamburger = document.querySelector(".hamburger");
+
+  menu.classList.toggle("active");
+  hamburger.classList.toggle("is-active");
+}
+</script>
+
+</body>
+</html>
